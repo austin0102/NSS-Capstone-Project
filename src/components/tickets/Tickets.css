@@ -1,0 +1,14 @@
+.tickets {
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket {
+    border-radius: 0%;
+    background-color: aqua;
+    border: 1px dashed blue;
+    padding: 40px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-evenly;
+}
