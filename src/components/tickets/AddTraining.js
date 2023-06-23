@@ -1,6 +1,5 @@
 
-
-
+import "./Tickets.css"
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -36,12 +35,12 @@ export const AddSkill = () => {
 
 
 
-const handleSaveButtonClick = () => {
+  const handleSaveButtonClick = () => {
     const skillToSendToAPI = {
       employeeId: skill.employeeId,
       serviceId: skill.serviceId,
     };
-  
+
     return fetch("http://localhost:8088/employeeskills", {
       method: "POST",
       headers: {
@@ -57,7 +56,7 @@ const handleSaveButtonClick = () => {
         console.error("Error:", error);
       });
   };
-  
+
 
   const handleGoBack = () => {
     navigate("/tickets");
@@ -65,9 +64,9 @@ const handleSaveButtonClick = () => {
 
   return (
     <form className="AddSkill">
-      <fieldset>
+      <fieldset className="box-holder">
         <div className="form-group">
-          <label htmlFor="type">Type:</label>
+          <label htmlFor="type"><strong>Services:</strong></label>
           <select
             className="form-control"
             value={skill.serviceId}
@@ -77,7 +76,7 @@ const handleSaveButtonClick = () => {
               setSkill(copy);
             }}
           >
-            <option value="">Select a type</option>
+            <option value="">Select a New Skill</option>
             <option value={1}>Oil Change</option>
             <option value={2}>Tire Rotation</option>
             <option value={3}>Wheel Alignment</option>
@@ -85,14 +84,16 @@ const handleSaveButtonClick = () => {
           </select>
         </div>
       </fieldset>
+      <div className="training-buttons">
 
-      <button onClick={handleSaveButtonClick} className="btn btn-primary">
-        Submit skill
-      </button>
+        <button onClick={handleSaveButtonClick} className="btn btn-primary">
+          Submit skill
+        </button>
 
-      <button onClick={handleGoBack} className="btn btn-secondary">
-        Go Back
-      </button>
+        <button onClick={handleGoBack} className="btn btn-secondary">
+          Go Back
+        </button>
+      </div>
     </form>
   );
 };

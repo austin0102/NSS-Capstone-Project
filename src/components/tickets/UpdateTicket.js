@@ -1,50 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
 import "./Tickets.css";
 
-export const AddTicket = () => {
-    const [ticket, setTicket] = useState({
-        serviceId: 0,
-        userId: 0,
+export const TicketUpdate = () => {
+    const { ticketId } = useParams();
+    const [ticket, setTicket] = useState(null);
+    const [updatedTicket, setUpdatedTicket] = useState({
         make: "",
         model: "",
-        yearMade: 2023,
-        licensePlate: "",
-        isComplete: false,
-        isClaimed: false,
+        yearMade: 0,
+        licensePlate: ""
     });
+    const navigate = useNavigate();
 
-    const localCurrentUser = localStorage.getItem("current_user");
-    const currentUserObject = JSON.parse(localCurrentUser);
+    useEffect(() => {
+        fetch(`http://localhost:8088/tickets/${ticketId}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setTicket(data);
+                setUpdatedTicket(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching ticket:", error);
+            });
+    }, [ticketId]);
 
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault();
-
-        const serviceToSendToAPI = {
-            serviceId: ticket.serviceId,
-            userId: currentUserObject.id,
-            make: ticket.make,
-            model: ticket.model,
-            yearMade: ticket.yearMade,
-            licensePlate: ticket.licensePlate,
-            isComplete: ticket.isComplete,
-            isClaimed: ticket.isClaimed,
-        };
-
-        fetch("http://localhost:8088/tickets", {
-            method: "POST",
+    const handleUpdateTicket = () => {
+        fetch(`http://localhost:8088/tickets/${ticketId}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(serviceToSendToAPI),
+            body: JSON.stringify(updatedTicket),
         })
-            .then((response) => response.json())
-            .then(() => {
-                window.alert("Your ticket has been submitted."); // Display window alert
-                window.location.reload(); // Reload the page
+            .then((res) => res.json())
+            .then((data) => {
+                setTicket(data);
+                window.alert("Your ticket has been updated.");
+                navigate("/your/tickets");
             })
             .catch((error) => {
-                console.error("Error:", error);
+                console.error("Error updating ticket:", error);
             });
+    };
+
+    if (!ticket) {
+        return <div>Loading...</div>;
+    }
+
+    const handleGoBack = () => {
+        navigate("/your/tickets");
     };
 
     return (
@@ -56,10 +62,14 @@ export const AddTicket = () => {
                         <label htmlFor="type">Service:</label>
                         <select
                             className="form-control"
-                            value={ticket.serviceId}
+                            value={updatedTicket.serviceId}
                             onChange={(evt) =>
-                                setTicket({ ...ticket, serviceId: parseInt(evt.target.value) })
+                                setUpdatedTicket({
+                                    ...updatedTicket,
+                                    serviceId: parseInt(evt.target.value),
+                                })
                             }
+                            name="serviceId"
                         >
                             <option value="">Select a Service</option>
                             <option value="1">Oil Change</option>
@@ -78,10 +88,14 @@ export const AddTicket = () => {
                             type="text"
                             className="form-control"
                             placeholder="Make"
-                            value={ticket.make}
+                            value={updatedTicket.make}
                             onChange={(evt) =>
-                                setTicket({ ...ticket, make: evt.target.value })
+                                setUpdatedTicket({
+                                    ...updatedTicket,
+                                    make: evt.target.value,
+                                })
                             }
+                            name="make"
                         />
                     </div>
                 </fieldset>
@@ -94,10 +108,14 @@ export const AddTicket = () => {
                             type="text"
                             className="form-control"
                             placeholder="Model"
-                            value={ticket.model}
+                            value={updatedTicket.model}
                             onChange={(evt) =>
-                                setTicket({ ...ticket, model: evt.target.value })
+                                setUpdatedTicket({
+                                    ...updatedTicket,
+                                    model: evt.target.value,
+                                })
                             }
+                            name="model"
                         />
                     </div>
                 </fieldset>
@@ -110,10 +128,14 @@ export const AddTicket = () => {
                             type="number"
                             className="form-control"
                             placeholder="Year"
-                            value={ticket.yearMade}
+                            value={updatedTicket.yearMade}
                             onChange={(evt) =>
-                                setTicket({ ...ticket, yearMade: parseInt(evt.target.value) })
+                                setUpdatedTicket({
+                                    ...updatedTicket,
+                                    yearMade: parseInt(evt.target.value),
+                                })
                             }
+                            name="yearMade"
                         />
                     </div>
                 </fieldset>
@@ -126,17 +148,31 @@ export const AddTicket = () => {
                             type="text"
                             className="form-control"
                             placeholder="License Plate"
-                            value={ticket.licensePlate}
+                            value={updatedTicket.licensePlate}
                             onChange={(evt) =>
-                                setTicket({ ...ticket, licensePlate: evt.target.value })
+                                setUpdatedTicket({
+                                    ...updatedTicket,
+                                    licensePlate: evt.target.value,
+                                })
                             }
+                            name="licensePlate"
                         />
                     </div>
                 </fieldset>
             </div>
-            <button onClick={handleSaveButtonClick} className="btn btn-primary">
-                Submit
-            </button>
+
+
+            <div className="update-buttons">
+                <button onClick={handleUpdateTicket} className="btn btn-primary">
+                    Save
+                </button>
+                <div className="button-space"></div> {/* Add a div for spacing */}
+                <button onClick={handleGoBack} className="btn btn-secondary">
+                    Go Back
+                </button>
+            </div>
+
         </form>
     );
 };
+

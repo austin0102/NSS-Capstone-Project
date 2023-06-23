@@ -1,14 +1,163 @@
+
 .tickets {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  margin-left: 150px;
+  margin-right: 150px;
 }
 
 .ticket {
-    border-radius: 0%;
-    background-color: aqua;
-    border: 1px dashed blue;
-    padding: 40px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-evenly;
+  border-radius: 0%;
+  background-color: #DC5F00;
+  border: 1px solid black;
+  padding: 30px;
+  margin: 8px;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 25px;
+}
+
+body {
+  background-image: url("https://wallpapercave.com/wp/wp1840558.jpg");
+  background-size: cover;
+}
+
+.serviceForm__title {
+  color: #DC5F00;
+}
+
+.form-group {
+  color: #DC5F00;
+  font-weight: bolder;
+}
+
+.Addservice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #EEEEEE;
+  border: black 1px solid;
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 30px;
+  border-radius: 25px;
+}
+
+.boxes {
+  display: flex;
+  justify-content: center;
+}
+
+.boxes fieldset {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.Addservice fieldset {
+  flex: 1;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.serviceForm__title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.Addservice button {
+  margin-top: 20px;
+}
+
+h2 {
+  color: #DC5F00;
+  font-size: 40px;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.button-group button {
+ text-align: center;
+}
+
+.go-back {
+
+ 
+}
+
+#root {
+  margin-left: 150px;
+  margin-right: 150px;
+  text-align: center;
+}
+
+.form-group {
+  width: 40%;
+}
+
+.box-holder {
+  display: flex;
+  justify-content: center;
+}
+
+.training-buttons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  margin-left: 30%;
+  margin-right: 35%;
+}
+
+.Addservice .form-control {
+  width: 300px;
+  /* Adjust the width as needed */
+}
+
+.update-buttons {
+  display: flex;
+}
+
+.button-space {
+  margin-left: 10px; /* Adjust the margin value to increase or decrease the space */
+}
+
+/* Media queries for responsiveness */
+
+@media screen and (max-width: 768px) {
+  /* Styles for screens with a maximum width of 768px */
+  .tickets,
+  #root {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  .Addservice {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Styles for screens with a maximum width of 480px */
+  .tickets,
+  #root {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .Addservice {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 20px;
+  }
+
+  .Addservice .form-control {
+    width: 100%;
+  }
 }

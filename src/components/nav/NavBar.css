@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: left;
+
 }
 
 .navbar__item {
@@ -13,3 +14,6 @@
     margin-left: auto;
 }
 
+.navbar__link {
+    color: #DC5F00
+}

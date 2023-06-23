@@ -2,16 +2,16 @@ import { EmployeeViews } from "./EmployeeViews.js";
 import { CustomerViews } from "./CustomerViews.js";
 
 export const ApplicationViews = () => {
-	
-    const localcurrentUser = localStorage.getItem("current_user");
-    const currentUserObject = JSON.parse(localcurrentUser);
 
-    if (currentUserObject.staff) {
+	const localcurrentUser = localStorage.getItem("current_user");
+	const currentUserObject = JSON.parse(localcurrentUser);
 
-        return <EmployeeViews />
-    } else {
+	if (currentUserObject.staff) {
 
-        return <CustomerViews />
-    }
-    
+		return <EmployeeViews />
+	} else {
+
+		return <CustomerViews />
+	}
+
 }
